@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>質問広場</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/stylesheets/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="/stylesheets/style.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <head>
+      <nav class="navbar navbar-expand-sm mb-3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand" href="/question-square/"><img src="/images/sitelogo.png" width="100px" height="50px" alt="logo" /></a>
+
+        <div class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav">
+
+            <form class="form-inline active-cyan-4">
+              <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                aria-label="Search">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </form>
+
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light">
+                <i class="far fa-bell"></i>
+                通知
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="#">ポイント</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user"></i> アカウント </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                  <a class="dropdown-item" href="/mypage">マイページ</a>
+                  <a class="dropdown-item" href="/logout">ログアウト</a>
+                </div>
+            </li>
+
+            <li class="nav-item">
+              <a href="/question-square/post" class="nav-link waves-effect waves-light">
+                <i class="far fa-comment"></i>
+                投稿
+              </a>
+            </li>
+  
+          </ul>
+        </div>
+      </nav>
+    </head>
+
+    <main>
+      <div class="container z-depth-2">
+        <h2>質問広場</h2>
+
+        <div class="col-12 clearfix">
+          <a type="button" href="/question-square/post" class="btn btn-primary float-right">質問する</a>
+        </div>
+        <hr />
+
+        <div class="list-group">
+          <% questionList.forEach((question) => { %>
+            <a href="/question-square/details/<%= question.question_number %>" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-2 h4"><%= question.title %></h5>
+                <small class="text-muted"><%= question.created_at %></small>
+              </div>
+
+              <p class="mb-2"><%= question.message %></p>
+              <small class="text-muted"><%= question.nickname %></small>
+            </a>
+          <% }); %>
+        </div>
+      </div>
+      
+    </main>
+
+    <script type="text/javascript" src="/javascripts/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="/javascripts/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="/javascripts/mdb.min.js"></script>
+  </body>
+</html>

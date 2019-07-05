@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <head>
+      <h1><%= title %></h1>
+    </head>
+    <div role="main">
+      <table>
+        <% for(var i in content) { %>
+          <tr>
+            <% var obj = content[i].attributes; %>
+            <th><%= obj.specialty_number %></th>
+            <th><%= obj.specialty_name %></th>
+          </tr>
+        <% } %>
+      </table>
+    </div>
+  </body>
+</html>
