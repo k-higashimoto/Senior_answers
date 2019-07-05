@@ -2,24 +2,25 @@
 高専生向けの質問サイト  
 
 ## 説明 
+ターゲットユーザー
 - 学生
 - 教員
 - OB・OG
     
 提供価値  
-    	人脈  
+- 人脈  
     
 チャネル  
-    	PC
-    	モバイル
+- PC
+- モバイル
 
 ## 機能
 
 
 ## 開発環境
 サーバー
-	・nodeJs
-	・express  
+- nodeJs
+- express  
 	
 フロント
-  	・Bootstrap for Material design
+- Bootstrap for Material design
