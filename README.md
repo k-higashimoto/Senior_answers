@@ -5,7 +5,7 @@
 ## 開発環境
 	サーバー
 		・nodeJs
-		・express
+		・express  
 	
  	 フロント
   		・Bootstrap for Material design
