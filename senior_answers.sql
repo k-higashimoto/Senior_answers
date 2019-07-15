@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 2019 年 7 朁E03 日 08:41
--- サーバのバージョン： 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- ホスト: 127.0.0.1
+-- 生成日時: 
+-- サーバのバージョン： 10.3.16-MariaDB
+-- PHP のバージョン: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,14 +19,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `senior_answers`
+-- データベース: `senior_answers`
 --
 
 DELIMITER $$
 --
 -- プロシージャ
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_user` (IN `in_nickname` VARCHAR(20) CHARSET utf8, IN `in_email` VARCHAR(20) CHARSET utf8, IN `in_password` VARCHAR(20) CHARSET utf8, IN `in_kosen_number` INT(3), IN `in_grade` INT(1), IN `in_specialty_number` INT(3), IN `in_self_introduction` VARCHAR(255) CHARSET utf8, IN `in_interest` VARCHAR(20) CHARSET utf8)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_user` (IN `in_nickname` VARCHAR(20) CHARSET utf8, IN `in_email` VARCHAR(20) CHARSET utf8, IN `in_password` VARCHAR(100) CHARSET utf8, IN `in_kosen_number` INT(3), IN `in_grade` INT(1), IN `in_specialty_number` INT(3), IN `in_self_introduction` VARCHAR(255) CHARSET utf8, IN `in_interest` VARCHAR(20) CHARSET utf8)  NO SQL
 BEGIN
     INSERT INTO users(nickname, email, password, kosen_number, specialty_number, grade, self_introduction, interest)
     VALUES (in_nickname, in_email, in_password, in_kosen_number, in_specialty_number, in_grade, in_self_introduction, in_interest);
@@ -48,9 +48,9 @@ BEGIN
 	SELECT specialty_number, specialty_name FROM specialty;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `in_email` VARCHAR(20) CHARSET utf8, IN `in_password` VARCHAR(20) CHARSET utf8)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `in_email` VARCHAR(20) CHARSET utf8)  BEGIN
     SELECT user_id, email, password FROM users
-    WHERE  email = in_email AND password = in_password;
+    WHERE  email = in_email;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `post_answer_for_question` (IN `in_question_number` INT(8), IN `in_answer_person` INT(8), IN `in_message` TEXT CHARSET utf8)  NO SQL
@@ -117,7 +117,7 @@ CREATE TABLE `answers` (
   `question_number` int(8) NOT NULL,
   `answer_person` int(8) NOT NULL,
   `message` text NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -223,8 +223,8 @@ CREATE TABLE `questions` (
   `question_person` int(8) NOT NULL,
   `title` varchar(30) NOT NULL,
   `message` text NOT NULL,
-  `fixed` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fixed` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -271,8 +271,8 @@ INSERT INTO `specialty` (`specialty_number`, `specialty_name`) VALUES
 CREATE TABLE `users` (
   `user_id` int(8) NOT NULL,
   `nickname` varchar(20) NOT NULL,
-  `email` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `kosen_number` int(3) NOT NULL,
   `specialty_number` int(3) NOT NULL,
   `grade` int(1) NOT NULL,
@@ -286,20 +286,20 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `nickname`, `email`, `password`, `kosen_number`, `specialty_number`, `grade`, `self_introduction`, `interest`, `kizuna_point`) VALUES
-(1, 'admin', 'admin@.ac.jp', 'password', 23, 3, 3, '', '', 99999),
-(2, '金魚', 'kingyo@ac.jp', 'password', 4, 4, 3, 'とてもとてもよろしく', 'ドローン', 25),
-(3, 'ユッキーナ', 'misa@ac.jp', 'password', 33, 5, 1, '初心者ですがよろしくお願いします', 'VR', 300),
-(4, 'ブクブク茶釜', 'bukubuku@ac.jp', 'password', 16, 6, 5, 'どうも～', 'アルゴリズム', 2456),
-(9, '★ZUN★', 'zun@ac.jp', 'password', 23, 3, 4, '', '', 0),
-(10, 'TKG', 'tkg@ac.jp', 'password', 2, 6, 1, '', '', 0),
-(17, '邪王心眼', 'zyaou@ac.jp', 'password', 56, 3, 5, '', '', 0);
+(1, 'admin', 'admin@.ac.jp', '$2b$10$I5jsEtjQDRkKSuAgshCup.bruY1Da1OuGtU0zwaEwuO...\r\n', 23, 3, 3, '', '', 99999),
+(2, '金魚', 'kingyo@ac.jp', '$2b$10$I5jsEtjQDRkKSuAgshCup.bruY1Da1OuGtU0zwaEwuO...\r\n', 4, 4, 3, 'とてもとてもよろしく', 'ドローン', 25),
+(3, 'ユッキーナ', 'misa@ac.jp', '$2b$10$I5jsEtjQDRkKSuAgshCup.bruY1Da1OuGtU0zwaEwuO...\r\n', 33, 5, 1, '初心者ですがよろしくお願いします', 'VR', 300),
+(4, 'ブクブク茶釜', 'bukubuku@ac.jp', '$2b$10$I5jsEtjQDRkKSuAgshCup.bruY1Da1OuGtU0zwaEwuO...\r\n', 16, 6, 5, 'どうも～', 'アルゴリズム', 2456),
+(9, '★ZUN★', 'zun@ac.jp', '$2b$10$I5jsEtjQDRkKSuAgshCup.bruY1Da1OuGtU0zwaEwuO...\r\n', 23, 3, 4, '', '', 0),
+(10, 'TKG', 'tkg@ac.jp', '$2b$10$I5jsEtjQDRkKSuAgshCup.bruY1Da1OuGtU0zwaEwuO...\r\n', 2, 6, 1, '', '', 0),
+(17, '邪王心眼', 'zyaou@ac.jp', '$2b$10$I5jsEtjQDRkKSuAgshCup.bruY1Da1OuGtU0zwaEwuO...\r\n', 56, 3, 5, '', '', 0);
 
 --
--- Indexes for dumped tables
+-- ダンプしたテーブルのインデックス
 --
 
 --
--- Indexes for table `answers`
+-- テーブルのインデックス `answers`
 --
 ALTER TABLE `answers`
   ADD PRIMARY KEY (`answer_number`),
@@ -307,25 +307,25 @@ ALTER TABLE `answers`
   ADD KEY `question_number` (`question_number`);
 
 --
--- Indexes for table `kosen`
+-- テーブルのインデックス `kosen`
 --
 ALTER TABLE `kosen`
   ADD PRIMARY KEY (`kosen_number`);
 
 --
--- Indexes for table `questions`
+-- テーブルのインデックス `questions`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`question_number`);
 
 --
--- Indexes for table `specialty`
+-- テーブルのインデックス `specialty`
 --
 ALTER TABLE `specialty`
   ADD PRIMARY KEY (`specialty_number`);
 
 --
--- Indexes for table `users`
+-- テーブルのインデックス `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
@@ -333,38 +333,38 @@ ALTER TABLE `users`
   ADD KEY `specialty_number` (`specialty_number`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- ダンプしたテーブルのAUTO_INCREMENT
 --
 
 --
--- AUTO_INCREMENT for table `answers`
+-- テーブルのAUTO_INCREMENT `answers`
 --
 ALTER TABLE `answers`
   MODIFY `answer_number` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `kosen`
+-- テーブルのAUTO_INCREMENT `kosen`
 --
 ALTER TABLE `kosen`
   MODIFY `kosen_number` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
--- AUTO_INCREMENT for table `questions`
+-- テーブルのAUTO_INCREMENT `questions`
 --
 ALTER TABLE `questions`
   MODIFY `question_number` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `specialty`
+-- テーブルのAUTO_INCREMENT `specialty`
 --
 ALTER TABLE `specialty`
   MODIFY `specialty_number` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `users`
+-- テーブルのAUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `user_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- ダンプしたテーブルの制約

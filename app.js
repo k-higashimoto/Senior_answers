@@ -4,6 +4,7 @@ let path          = require("path");
 let cookieParser  = require("cookie-parser");
 let logger        = require("morgan");
 let session       = require("express-session");
+let crypto        = require("crypto")
 
 
 let indexRouter           = require("./routes/index");

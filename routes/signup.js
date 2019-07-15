@@ -1,5 +1,6 @@
 let express = require('express');
 let mysql   = require('mysql');
+let bcrypt  = require('bcrypt');
 
 
 let router = express.Router();
@@ -39,11 +40,11 @@ router.post("/", (req, res, next) => {
 
   let nickname         = req.body.nickname;
   let email            = req.body.email;
-  let password         = req.body.password;
   let kosen_number     = req.body.kosen_number;
   let grade            = req.body.grade;
   let specialty_number = req.body.specialty_number;
-
+  let password         = bcrypt.hashSync(req.body.password, 10);
+  
   let query = `CALL add_user("${nickname}", "${email}", "${password}", ${kosen_number}, ${grade}, ${specialty_number}, "", "")`;
   connection.query(query, (err, results, fileds) => {
 
