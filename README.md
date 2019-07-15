@@ -1,4 +1,4 @@
-#＃ 先輩袋  
+## 先輩袋  
 ![senior_answers](https://user-images.githubusercontent.com/52561458/61196225-02333c80-a708-11e9-8811-9f62cc1c2afc.JPG)  
 高専生向けの質問サイト  
 
