@@ -4,10 +4,24 @@
     font-family: 'Noto Sans JP', sans-serif;
 }
 
+body {
+	background-image: url('../images/background.png');
+	background-size: cover;
+}
+
 .container {
     width:       75%;
     padding:     3%;
     margin-top:  5%;
+	background-color: #EBECEC;
+}
+
+.list-group-item {
+	background-color: #FFFAEA;
+}
+
+.navbar {
+	background-color:  #EBECEC;
 }
 
 .navbar-default {
@@ -17,8 +31,4 @@
 
 .navbar-default .navbar-nav > li > a {
     color: #ffffff;
-}
-
-.nav-link {
-    color: black;
 }
